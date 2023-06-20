@@ -2,14 +2,21 @@
 
 import requests
 from pprint import pprint
+import yaml
 
-API_kEY = '4a66611882e913b1e0200ba837522cbc'
+
+
+with open('config.yaml') as f:
+    config = yaml.safe_load(f)
+
+API_kEY = config['API_kEY']
+base_url = config['base_url']
 
 city = input("enter the city:")
 
-base_url = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+ API_kEY
+url = f"{base_url}?q={city}&appid={API_kEY}"
 
-print(base_url)
-weather_date = requests.get(base_url).json()
+
+weather_date = requests.get(url).json()
 
 pprint(weather_date)
